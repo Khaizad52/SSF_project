@@ -12,7 +12,7 @@ import SSF.mini_project.models.News;
 import SSF.mini_project.service.NewsService;
 
 @Controller
-@RequestMapping(path="/news")
+@RequestMapping(path="/")
 public class NewsController {
     @Autowired
     private NewsService newsService;
@@ -21,6 +21,8 @@ public class NewsController {
     public String newsPage(Model model){
         News news = new News();
         
+        return "login";
         
     }
+    
 }

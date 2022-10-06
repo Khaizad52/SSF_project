@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="center" th:each="news : *{newsList}">
+        <img th:src="${news.image}" class="img-fluid rounded" style="height: 250px; width: 100vw">
+        <h5>ID: <span th:text="${news.id}"></span> </h5>
+        <h5>Author: <span th:text="${news.author}"></span> </h5>
+        <!--
+        <h5>Image: <span th:text="${news.image}"></span> </h5>
+        -->
+        <h5>Language: <span th:text="${news.language}"></span> </h5>
+        <h5>Publish Date: <span th:text="${news.publishDate}"></span> </h5>
+        <h5>Source Country: <span th:text="${news.sourceCountry}"></span> </h5>
+        <h5>Text: <span th:text="${news.text}"></span> </h5>
+        <h5>Title: <span th:text="${news.title}"></span> </h5>
+        <h5>URL: <span th:text="${news.url}"></span> </h5>
+    </div>
+</body>
+</html>

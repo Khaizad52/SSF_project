@@ -1,53 +1,80 @@
 package SSF.mini_project.service;
 
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import SSF.mini_project.models.News;
 import SSF.mini_project.models.Query;
 import SSF.mini_project.models.Response;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 
 @Service
 public class NewsService {
     private static final Logger logger = LoggerFactory.getLogger(NewsService.class);
     
     private static String URL = "https://api.apilayer.com/world_news/search-news";
-    
-    public Response searchNews(Query q){
-        logger.info("api_start");
-        String apikey = System.getenv("APILAYER_WORLDNEWS_APIKEY");
+
+    //@Value("${apikey}")
+
+    //private String apikey = System.getenv("APILAYER_WORLDNEWS_APIKEY");
+
+    //Qey11UXTn9x0bURcWfakEOUHOzvJstDA
+
+    public List<News> searchNews(String search){
+        //String apikey = System.getenv("APILAYER_WORLDNEWS_APIKEY");
+
+        //SSF_Project_API
+        String apikey = System.getenv("SSF_Project_API");
         
+        //String apikey = "Qey11UXTn9x0bURcWfakEOUHOzvJstDA";
+
         String queryURL = UriComponentsBuilder.fromUriString(URL)
-        .queryParam("source-countries", q.getSourceCountries())
+        .queryParam("source-countries", search)
         .toUriString();
 
-        logger.info(queryURL);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("apikey", apikey);
+        HttpEntity request = new HttpEntity<>(headers);
 
-        RestTemplate temp = new RestTemplate();
-        ResponseEntity<String> response = null;
+        logger.info("APIKEY > "+apikey);
 
-        try{
-            HttpHeaders hdrs = new HttpHeaders();
-            hdrs.set("apikey", apikey);
-            HttpEntity reqs = new HttpEntity(hdrs);
-            logger.info("api reqs");
-            response = temp.exchange(queryURL, HttpMethod.GET, reqs, String.class, 1);
-            Response r = Response.createJson(response.getBody());
-            logger.info("api good");
-            return r;
-
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            e.printStackTrace();
-        }
-        return null;
         
-    }
+        //RequestEntity<Void> req = RequestEntity.get(queryURL).build();
+        RestTemplate restTemp = new RestTemplate();
+        ResponseEntity<String> resp = restTemp.exchange(queryURL, HttpMethod.GET, request, String.class);
+        
+        String payload = resp.getBody();
+        Reader strReader = new StringReader(payload);       
+        JsonReader jsonReader = Json.createReader(strReader);
+        JsonObject jsonObject = jsonReader.readObject();
+        JsonArray data = jsonObject.getJsonArray("news");
 
+        
+        List<News> list = new LinkedList<>();
+
+        for(int i = 0; i<data.size(); i++){
+            
+            JsonObject jo = data.getJsonObject(i);
+            list.add(News.createJson(jo));
+        }
+
+        return list;
+}
 }

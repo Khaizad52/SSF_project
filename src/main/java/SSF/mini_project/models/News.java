@@ -80,13 +80,14 @@ public class News {
 
     public static News createJson(JsonObject jo){
         News n = new News();
+        //logger.info("create Json");
 
         JsonNumber jId = jo.getJsonNumber("id");
         n.id = String.valueOf(jId.intValue());
         JsonString jAuthor = jo.getJsonString("author");
         n.author = jAuthor.toString();
         JsonString jImage = jo.getJsonString("image");
-        n.image = jImage.toString();
+        n.image = jImage.toString().replace("\"", "");
         JsonString jLanguage = jo.getJsonString("language");
         n.language = jLanguage.toString();
         JsonString jPublishDate = jo.getJsonString("publish_date");
@@ -103,6 +104,20 @@ public class News {
         logger.info(String.valueOf(n.id));
 
         return n;
+    }
+    public static News create(JsonObject jo) {
+        News news = new News();
+        news.setId(jo.getString("id"));
+        news.setAuthor(jo.getString("author"));
+        news.setImage(jo.getString("image"));
+        news.setLanguage(jo.getString("language"));
+        news.setPublishDate(jo.getString("publish_date"));
+        news.setSourceCountry(jo.getString("source_country"));
+        news.setText(jo.getString("text"));
+        news.setTitle(jo.getString("title"));
+        news.setUrl(jo.getString("url"));
+
+        return news;
     }
 
 }

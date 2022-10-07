@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import SSF.mini_project.models.News;
 import SSF.mini_project.models.User;
@@ -36,20 +35,4 @@ public class SearchController {
         return "search";
         
     }
-
-
-
-
-
-    /*
-    @GetMapping
-    public String searchNews(Model model, @RequestParam String search){
-        logger.info("search News");
-
-        List<News> searchNews = newsSvc.searchNews(search);
-        model.addAttribute("country", searchNews);
-
-        return "result";
-    }
-    */
 }

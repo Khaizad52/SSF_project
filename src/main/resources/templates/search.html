@@ -4,21 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Search Page</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" 
+    crossorigin="anonymous">
+    <div class="bg-blue p-2 text-white bg-opacity-75"></div>
 </head>
+
 <body>
-    <form 
-    action="#"
-    th:action="@{/result}"
-    method="GET">
-        <input 
-        type="text"
-        th:object="${country}"
-        name="Country"
-        id="Country"
-        >
-        <button type="submit">Search</button>
-    </form>
+    <style>
+        .my-custom-row{  
+            background-color: darkcyan;
+            height: 1500px;
+        }
+    </style>
     
+
+    <div class="row my-custom-row justify-content-center align-items-center">
+        <div class="col-sm-4"><div class="p-3 border bg-light">
+            <h2>Which country news would you like to retrieve:</h2>
+
+            <form 
+        action="#"
+        th:action="@{/result}"
+        method="GET">
+
+            <input 
+            class="form-control"
+            type="text"
+            th:object="${country}"
+            name="Country"
+            id="Country"
+            >
+        
+            <button type="submit" class="btn text-bg-warning">Search</button>
+        
+        </form>
+        </div></div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" 
+    crossorigin="anonymous">
+    </script>
 </body>
 </html>

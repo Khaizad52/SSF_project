@@ -84,22 +84,30 @@ public class News {
 
         JsonNumber jId = jo.getJsonNumber("id");
         n.id = String.valueOf(jId.intValue());
+
         JsonString jAuthor = jo.getJsonString("author");
-        n.author = jAuthor.toString();
+        n.author = jAuthor.toString().replace("\"", "");
+
         JsonString jImage = jo.getJsonString("image");
         n.image = jImage.toString().replace("\"", "");
+
         JsonString jLanguage = jo.getJsonString("language");
-        n.language = jLanguage.toString();
+        n.language = jLanguage.toString().replace("\"", "");
+
         JsonString jPublishDate = jo.getJsonString("publish_date");
-        n.publishDate = jPublishDate.toString();
+        n.publishDate = jPublishDate.toString().replace("\"", "");
+
         JsonString jSourceCountry = jo.getJsonString("source_country");
-        n.sourceCountry = jSourceCountry.toString();
+        n.sourceCountry = jSourceCountry.toString().replace("\"", "");
+
         JsonString jText = jo.getJsonString("text");
-        n.text = jText.toString();
+        n.text = jText.toString().replace("\"", "");
+
         JsonString jTitle = jo.getJsonString("title");
-        n.title = jTitle.toString();
+        n.title = jTitle.toString().replace("\"", "");
+
         JsonString jUrl = jo.getJsonString("url");
-        n.url = jUrl.toString();
+        n.url = jUrl.toString().replace("\"", "");
 
         logger.info(String.valueOf(n.id));
 

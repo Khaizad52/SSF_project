@@ -31,19 +31,8 @@ public class NewsService {
     
     private static String URL = "https://api.apilayer.com/world_news/search-news";
 
-    //@Value("${apikey}")
-
-    //private String apikey = System.getenv("APILAYER_WORLDNEWS_APIKEY");
-
-    //Qey11UXTn9x0bURcWfakEOUHOzvJstDA
-
     public List<News> searchNews(String search){
-        //String apikey = System.getenv("APILAYER_WORLDNEWS_APIKEY");
-
-        //SSF_Project_API
         String apikey = System.getenv("SSF_Project_API");
-        
-        //String apikey = "Qey11UXTn9x0bURcWfakEOUHOzvJstDA";
 
         String queryURL = UriComponentsBuilder.fromUriString(URL)
         .queryParam("source-countries", search)
@@ -55,8 +44,6 @@ public class NewsService {
 
         logger.info("APIKEY > "+apikey);
 
-        
-        //RequestEntity<Void> req = RequestEntity.get(queryURL).build();
         RestTemplate restTemp = new RestTemplate();
         ResponseEntity<String> resp = restTemp.exchange(queryURL, HttpMethod.GET, request, String.class);
         
